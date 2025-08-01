@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Công cụ chuyển đổi văn bản online - Chuyển chữ hoa thành chữ thường và nhiều tính năng khác">
+    <title>Chuyển Đổi Văn Bản Online - Công Cụ Miễn Phí</title>
+    
+    <!-- Font chữ dễ đọc cho người trung niên -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <h1 id="main-title">Công Cụ Chuyển Đổi Văn Bản Chuyên Nghiệp</h1>
+            <p class="subtitle">Miễn phí - Nhanh chóng - Dễ sử dụng</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Text Converter Section -->
+            <section class="converter-section">
+                <h2 id="converter-heading">Chuyển Đổi Văn Bản</h2>
+                
+                <div class="converter-wrapper">
+                    <!-- Input Area -->
+                    <div class="input-area">
+                        <label for="inputText">Nhập văn bản của bạn:</label>
+                        <textarea id="inputText" placeholder="Dán hoặc gõ văn bản vào đây..."></textarea>
+                        
+                        <!-- Character Counter -->
+                        <div class="counter">
+                            <span>Số ký tự: <strong id="charCount">0</strong></span>
+                            <span>Số từ: <strong id="wordCount">0</strong></span>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="action-buttons">
+                        <button class="btn btn-primary" onclick="convertToLowercase()">
+                            <span class="icon">↓</span> Chữ thường
+                        </button>
+                        <button class="btn btn-secondary" onclick="convertToUppercase()">
+                            <span class="icon">↑</span> CHỮ HOA
+                        </button>
+                        <button class="btn btn-secondary" onclick="convertToTitleCase()">
+                            <span class="icon">Aa</span> Viết Hoa Đầu Từ
+                        </button>
+                        <button class="btn btn-secondary" onclick="convertToSentenceCase()">
+                            <span class="icon">A.</span> Viết hoa đầu câu
+                        </button>
+                        <button class="btn btn-secondary" onclick="convertToToggleCase()">
+                            <span class="icon">⇄</span> đẢO nGƯỢC
+                        </button>
+                    </div>
+
+                    <!-- Utility Buttons -->
+                    <div class="utility-buttons">
+                        <button class="btn btn-success" onclick="copyText()">
+                            <span class="icon">📋</span> Sao chép
+                        </button>
+                        <button class="btn btn-danger" onclick="clearText()">
+                            <span class="icon">🗑️</span> Xóa tất cả
+                        </button>
+                        <button class="btn btn-info" onclick="downloadText()">
+                            <span class="icon">💾</span> Tải xuống
+                        </button>
+                    </div>
+
+                    <!-- File Upload -->
+                    <div class="file-upload">
+                        <label for="fileInput" class="file-label">
+                            <span class="icon">📁</span> Tải file lên (.txt)
+                        </label>
+                        <input type="file" id="fileInput" accept=".txt" onchange="handleFileUpload(event)">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Affiliate Products Section -->
+            <section class="products-section" id="affiliateSection">
+                <h2 id="affiliate-heading">Sản Phẩm Đề Xuất</h2>
+                <div class="products-grid" id="affiliateProducts">
+                    <!-- Products will be loaded here -->
+                </div>
+            </section>
+
+            <!-- Tours Section -->
+            <section class="tours-section" id="toursSection">
+                <h2 id="tours-heading">Tour Du Lịch Hot</h2>
+                <div class="tours-grid" id="toursList">
+                    <!-- Tours will be loaded here -->
+                </div>
+            </section>
+
+            <!-- Cars Section -->
+            <section class="cars-section" id="carsSection">
+                <h2 id="cars-heading">Ô Tô Khuyến Mãi</h2>
+                <div class="cars-grid" id="carsList">
+                    <!-- Cars will be loaded here -->
+                </div>
+            </section>
+
+            <!-- Anchor Links Section -->
+            <section class="links-section">
+                <h2>Liên Kết Hữu Ích</h2>
+                <div class="links-container" id="anchorLinks">
+                    <!-- Links will be loaded here -->
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Công Cụ Chuyển Đổi Văn Bản. Mọi quyền được bảo lưu.</p>
+        </div>
+    </footer>
+
+    <!-- Popup Modal -->
+    <div id="popupModal" class="popup-modal">
+        <div class="popup-content">
+            <span class="close-popup" onclick="closePopup()">&times;</span>
+            <div id="popupBody">
+                <!-- Popup content will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Booking Modal -->
+    <div id="bookingModal" class="booking-modal">
+        <div class="booking-content">
+            <span class="close-booking" onclick="closeBookingModal()">&times;</span>
+            <h3>Đăng Ký Tư Vấn</h3>
+            <form id="bookingForm" onsubmit="submitBooking(event)">
+                <input type="hidden" id="bookingItemName" name="itemName">
+                <input type="hidden" id="bookingItemType" name="itemType">
+                
+                <div class="form-group">
+                    <label>Sản phẩm/Tour:</label>
+                    <p id="bookingItemDisplay"></p>
+                </div>
+                
+                <div class="form-group">
+                    <label for="customerName">Họ và tên: *</label>
+                    <input type="text" id="customerName" name="customerName" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="customerPhone">Số điện thoại: *</label>
+                    <input type="tel" id="customerPhone" name="customerPhone" required pattern="[0-9]{10,11}">
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Gửi thông tin</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/main.js"></script>
+</body>
+</html>
